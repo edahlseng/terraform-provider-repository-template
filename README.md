@@ -8,9 +8,9 @@ Setup
 
 ```hcl
 provider "repository-template" {
-  github_token = "<personal access token>"
-  commit_message       = "chore: Update files to match template" // Replace with desired commit message
-  commit_author_name = "Template Bot" // Replace with desired commit author name
+  github_token       = "<personal access token>"
+  commit_message     = "chore: Update files to match template" // Replace with desired commit message
+  commit_author_name = "Template Bot"                          // Replace with desired commit author name
 }
 ```
 
@@ -23,14 +23,14 @@ Resources
 
 ```hcl
 resource "repository-template_github" "example" {
-	repository_owner = "example-user"
-	repository_name = "example"
-	target_branch = "master"
-	working_branch = "ci/template"
+  repository_owner = "example-user"
+  repository_name  = "example"
+  target_branch    = "master"
+  working_branch   = "ci/template"
 
-	files = {
-		"CONTRIBUTING.md" = "Pull requests are welcome!"
-	}
+  files = {
+    "CONTRIBUTING.md" = "Pull requests are welcome!"
+  }
 }
 ```
 
