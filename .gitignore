@@ -1,7 +1,7 @@
 .terraform
 terraform.log
 terraform.tfstate*
-terraform-provider-repository-template
+/terraform-provider-repository-template
 *.tf
 dist/
 node_modules/
