@@ -194,19 +194,19 @@ func resourceRepositoryTemplateGitHubUpdate(d *schema.ResourceData, meta interfa
 		if pushErr != nil {
 			return fmt.Errorf("Error pushing changes: %s", pushErr)
 		}
-	}
 
-	_, _, pullRequestErr := client.GitHubClient.PullRequests.Create(context.Background(), d.Get("repository_owner").(string), d.Get("repository_name").(string), &github.NewPullRequest{
-		Title:               github.String(client.CommitMessage),
-		Base:                github.String(d.Get("target_branch").(string)),
-		Head:                github.String(d.Get("working_branch").(string)),
-		Body:                github.String("This PR was created by Terraform."),
-		MaintainerCanModify: github.Bool(true),
-	})
+		_, _, pullRequestErr := client.GitHubClient.PullRequests.Create(context.Background(), d.Get("repository_owner").(string), d.Get("repository_name").(string), &github.NewPullRequest{
+			Title:               github.String(client.CommitMessage),
+			Base:                github.String(d.Get("target_branch").(string)),
+			Head:                github.String(d.Get("working_branch").(string)),
+			Body:                github.String("This PR was created by Terraform."),
+			MaintainerCanModify: github.Bool(true),
+		})
 
-	if !pullRequestAlreadyExists(pullRequestErr) {
-		if pullRequestErr != nil {
-			return fmt.Errorf("Error creating pull request: %s", pullRequestErr)
+		if !pullRequestAlreadyExists(pullRequestErr) {
+			if pullRequestErr != nil {
+				return fmt.Errorf("Error creating pull request: %s", pullRequestErr)
+			}
 		}
 	}
 
