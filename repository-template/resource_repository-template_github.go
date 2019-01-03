@@ -240,13 +240,15 @@ func resourceRepositoryTemplateGitHubRead(d *schema.ResourceData, meta interface
 			fmt.Errorf("Error while opening file: %s", filePath)
 		}
 
-		contents, readErr := ioutil.ReadAll(file)
-		files[filePath] = string(contents)
-		if readErr != nil {
-			fmt.Errorf("Error while reading file at path %s: %s", filePath, readErr)
-		}
+		if file != nil {
+			contents, readErr := ioutil.ReadAll(file)
+			files[filePath] = string(contents)
+			if readErr != nil {
+				fmt.Errorf("Error while reading file at path %s: %s", filePath, readErr)
+			}
 
-		file.Close()
+			file.Close()
+		}
 	}
 
 	d.Set("files", files)
