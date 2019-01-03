@@ -61,7 +61,7 @@ func cloneRepository(d *schema.ResourceData, client *Client) (*git.Repository, e
 	prs, _, gitHubErr := client.GitHubClient.PullRequests.List(context.Background(), d.Get("repository_owner").(string), d.Get("repository_name").(string), &github.PullRequestListOptions{
 		State:     "open",
 		Base:      d.Get("target_branch").(string),
-		Head:      d.Get("working_branch").(string),
+		Head:      fmt.Sprintf("%s:%s", d.Get("repository_owner").(string), d.Get("working_branch").(string)),
 		Sort:      "updated",
 		Direction: "desc",
 	})
