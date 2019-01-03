@@ -1,0 +1,42 @@
+version: 2.1
+
+orbs:
+  general: edahlseng/general@1.6.1
+
+workflows:
+  main:
+    jobs:
+      - general/install-dependencies-npm
+      - general/lint-commit:
+          requires:
+            - general/install-dependencies-npm
+      - general/lint-json:
+          requires:
+            - general/install-dependencies-npm
+      - general/lint-yaml:
+          requires:
+            - general/install-dependencies-npm
+      - general/create-release-pr:
+          context: Release Bot
+          git-ssh-fingerprint: 4e:60:7e:40:93:9e:81:74:ab:8b:24:2e:01:ba:8e:38
+          git-user-email: edahlseng@users.noreply.github.com
+          git-user-name: "Release Bot"
+          github-access-token: $RELEASE_BOT_GITHUB_TOKEN
+          requires:
+            - general/lint-commit
+            - general/lint-json
+            - general/lint-yaml
+          filters:
+            branches:
+              only: master
+      - general/tag:
+          git-ssh-fingerprint: 4e:60:7e:40:93:9e:81:74:ab:8b:24:2e:01:ba:8e:38
+          git-user-email: edahlseng@users.noreply.github.com
+          git-user-name: "Release Bot"
+          requires:
+            - general/lint-commit
+            - general/lint-json
+            - general/lint-yaml
+          filters:
+            branches:
+              only: master
