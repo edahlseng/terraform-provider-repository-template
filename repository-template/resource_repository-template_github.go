@@ -175,8 +175,9 @@ func resourceRepositoryTemplateGitHubUpdate(d *schema.ResourceData, meta interfa
 		_, commitErr := worktree.Commit(client.CommitMessage, &git.CommitOptions{
 			All: false,
 			Author: &object.Signature{
-				Name: client.CommitAuthorName,
-				When: time.Now(),
+				Email: client.CommitAuthorEmail,
+				Name:  client.CommitAuthorName,
+				When:  time.Now(),
 			},
 		})
 

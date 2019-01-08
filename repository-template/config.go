@@ -13,10 +13,11 @@ type Config struct {
 }
 
 type Client struct {
-	GitHubClient     *github.Client
-	GitHubGitAuth    transport.AuthMethod
-	CommitMessage    string
-	CommitAuthorName string
+	GitHubClient      *github.Client
+	GitHubGitAuth     transport.AuthMethod
+	CommitAuthorEmail string
+	CommitAuthorName  string
+	CommitMessage     string
 }
 
 func (c *Config) NewClient() *Client {
