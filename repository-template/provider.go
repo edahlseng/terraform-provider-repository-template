@@ -8,6 +8,11 @@ import (
 func Provider() terraform.ResourceProvider {
 	return &schema.Provider{
 		Schema: map[string]*schema.Schema{
+			"commit_author_email": &schema.Schema{
+				Type:        schema.TypeString,
+				Required:    true,
+				Description: "Author email to use when signing commits",
+			},
 			"commit_author_name": &schema.Schema{
 				Type:        schema.TypeString,
 				Required:    true,
@@ -41,8 +46,9 @@ func providerConfigure(d *schema.ResourceData) (interface{}, error) {
 
 	client := config.NewClient()
 
-	client.CommitMessage = d.Get("commit_message").(string)
+	client.CommitAuthorEmail = d.Get("commit_author_email").(string)
 	client.CommitAuthorName = d.Get("commit_author_name").(string)
+	client.CommitMessage = d.Get("commit_message").(string)
 
 	return client, nil
 }
