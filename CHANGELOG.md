@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.1.3](https://github.com/edahlseng/terraform-provider-repository-template/compare/v0.1.2...v0.1.3) (2019-01-08)
+
+
+### Bug Fixes
+
+* Add configuration option for commit author email ([8e4c678](https://github.com/edahlseng/terraform-provider-repository-template/commit/8e4c678))
+
+
+
 ## [0.1.2](https://github.com/edahlseng/terraform-provider-repository-template/compare/v0.1.1...v0.1.2) (2019-01-03)
 
 
