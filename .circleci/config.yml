@@ -1,7 +1,25 @@
 version: 2.1
 
 orbs:
-  general: edahlseng/general@1.6.1
+  general: edahlseng/general@1.7.1
+
+executors:
+  golang:
+    docker:
+      - image: circleci/golang:1.11.4
+        user: circleci
+
+jobs:
+  build-artifacts:
+    executor: golang
+    steps:
+      - general/get-workspace
+      - general/halt-if-not-release-commit
+      - run:
+          name: Building artifacts
+          command: make targets
+      - general/put-path:
+          path: dist/*.zip
 
 workflows:
   main:
@@ -37,6 +55,21 @@ workflows:
             - general/lint-commit
             - general/lint-json
             - general/lint-yaml
+          filters:
+            branches:
+              only: master
+      - build-artifacts:
+          requires:
+            - general/tag
+          filters:
+            branches:
+              only: master
+      - general/create-github-release:
+          context: Release Bot
+          github-access-token: $RELEASE_BOT_GITHUB_TOKEN
+          artifact-paths: dist/*.zip
+          requires:
+            - build-artifacts
           filters:
             branches:
               only: master
