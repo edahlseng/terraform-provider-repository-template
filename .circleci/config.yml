@@ -1,7 +1,7 @@
 version: 2.1
 
 orbs:
-  general: edahlseng/general@1.7.1
+  general: edahlseng/general@1.22.0
 
 executors:
   golang:
@@ -36,7 +36,7 @@ workflows:
             - general/install-dependencies-npm
       - general/create-release-pr:
           context: Release Bot
-          git-ssh-fingerprint: 4e:60:7e:40:93:9e:81:74:ab:8b:24:2e:01:ba:8e:38
+          git-ssh-fingerprint: 57:42:c2:e2:21:9f:39:e7:e2:db:3c:77:8c:41:5a:1f
           git-user-email: edahlseng@users.noreply.github.com
           git-user-name: "Release Bot"
           github-access-token: $RELEASE_BOT_GITHUB_TOKEN
@@ -48,7 +48,7 @@ workflows:
             branches:
               only: master
       - general/tag:
-          git-ssh-fingerprint: 4e:60:7e:40:93:9e:81:74:ab:8b:24:2e:01:ba:8e:38
+          git-ssh-fingerprint: 57:42:c2:e2:21:9f:39:e7:e2:db:3c:77:8c:41:5a:1f
           git-user-email: edahlseng@users.noreply.github.com
           git-user-name: "Release Bot"
           requires:
